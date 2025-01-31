@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        .we{
+            position: relative;
+             text-align: center;
+             color: rgb(246, 248, 241);
+        }
+        .centered {
+             position: absolute;
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%, -50%);
+}
+        .blink {
+                font-weight: 600;
+                margin-top: 25px;
+                animation: blinker 1.0s linear infinite;
+                color: rgb(244, 252, 248);
+                font-family: sans-serif;
+                background-color:crimson;
+                font-size: x-large;
+            }
+
+            @keyframes blinker {
+                50% {
+                    opacity: 0;
+                }
+            }
+    </style>
+</head>
+<body style ="background-color: rgb(204, 204, 255);">
+    <div class="we">
+        <img src="https://images.theconversation.com/files/442675/original/file-20220126-17-1i0g402.jpg?ixlib=rb-4.1.0&q=45&auto=format&w=1356&h=668&fit=crop" width="1000" height="400">
+        <div class="centered">
+            {%if messages%}
+    {%for messages in messages%}
+    <div class="alert alert-{{messages.tags}}" style="background-color:rgb(237, 118, 28); font-size: larger;">{{messages}}</div>
+    {%endfor%}
+    {%endif%}
+    <h1>Find The Weather</h1>
+    <form method = "POST">
+        {%csrf_token%}
+        <label for="city"></label>
+        <input type="text" id="city" name= "city" placeholder="Enter City/Country" required><br><br>
+        <input type="submit" value = "Submit">
+        <br><br><h3 style="background-color: coral;padding:10px;">
+        The city/country you entered is <b><i>{{city_name}}</i></b><br>
+        The Atmosphere is 
+        <b><i>{{dt}}</i></b>
+        <br>
+         Temperature is <b><i>{{tmp}} °C</i></b><br>
+         Humidity is <b><i>{{humidity}}</i></b>
+         <br> Minimum Temperature is <b><i>{{min_tmp}} °C</i></b>
+         <br> Maximum Temperature is <b><i>{{max_tmp}} °C</i></b> </h3>
+    </form>
+    </div>
+    </div>
+    <marquee class="blink" onmouseover="stop()" onmouseout="start()">Make Sure You Are Connected With Internet</marquee>
+
+</body>
+</html>
